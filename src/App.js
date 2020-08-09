@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { Component }  from 'react';
 import './App.css';
 
 import Header from './components/Header'
 import ToyForm from './components/ToyForm'
 import ToyContainer from './components/ToyContainer'
 
-import data from './data'
+import toyData from './data'
 
-
-class App extends React.Component{
-
+class App extends Component{
   state = {
-    display: false
+    display: false,
+    toys: [],
+  }
+
+  componentDidMount(){
+    this.setState({
+      toys: toyData
+    })
   }
 
   handleClick = () => {
@@ -27,14 +32,14 @@ class App extends React.Component{
         <Header/>
         { this.state.display
             ?
-          <ToyForm/>
+          <ToyForm />
             :
           null
         }
         <div className="buttonContainer">
           <button onClick={this.handleClick}> Add a Toy </button>
         </div>
-        <ToyContainer/>
+        <ToyContainer toys={this.state.toys}/>
       </>
     );
   }
